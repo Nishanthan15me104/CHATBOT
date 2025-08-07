@@ -1,0 +1,33 @@
+FROM ./unsloth.Q4_K_M.gguf
+
+TEMPLATE """{{ if .System }}<|im_start|>system
+{{ .System }}<|im_end|>{{ end }}{{ if .Prompt }}
+<|im_start|>user
+{{ .Prompt }}<|im_end|>{{ end }}
+<|im_start|>assistant
+{{ .Response }}<|im_end|>"""
+
+PARAMETER stop "<|box_end|>"
+PARAMETER stop "<|endoftext|>"
+PARAMETER stop "<tool_response>"
+PARAMETER stop "</think>"
+PARAMETER stop "</tool_response>"
+PARAMETER stop "<|quad_start|>"
+PARAMETER stop "<tool_call>"
+PARAMETER stop "<|video_pad|>"
+PARAMETER stop "<|file_sep|>"
+PARAMETER stop "<|repo_name|>"
+PARAMETER stop "<|quad_end|>"
+PARAMETER stop "<think>"
+PARAMETER stop "<|image_pad|>"
+PARAMETER stop "<|box_start|>"
+PARAMETER stop "</tool_call>"
+PARAMETER stop "<|im_start|>"
+PARAMETER stop "<|object_ref_start|>"
+PARAMETER stop "<|object_ref_end|>"
+PARAMETER stop "<|im_end|>"
+PARAMETER stop "<|fim_"
+PARAMETER stop "<|vision_"
+PARAMETER temperature 1.5
+PARAMETER min_p 0.1
+SYSTEM "Below are some instructions that describe some tasks. Write responses that appropriately complete each request."
