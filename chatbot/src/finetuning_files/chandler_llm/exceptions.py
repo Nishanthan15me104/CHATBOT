@@ -7,7 +7,7 @@ class UnslothNotInstalledError(ImportError):
 
     def __init__(
         self,
-        message="Unsloth is required but not installed. Remember finetune should be run in a Lambda Labs instance",
+        message="Unsloth is required but not installed. Remember finetune should be run in Google  Colab",
     ):
         self.message = message
         super().__init__(self.message)
