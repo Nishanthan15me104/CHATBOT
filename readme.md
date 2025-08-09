@@ -22,7 +22,7 @@
 
 ## Introduction
 
-This project shows you how to make **Llama 3.1 8B** speak like **Rick Sanchez** by:
+This project shows you how to make **Qwen3-0** speak like **chandler** by:
 
 - Creating a custom dataset from Chandler Bing transcripts in ShareGPT format
 - Finetuning the model using [Unsloth](https://unsloth.ai/)'s optimizations on Google Colab
@@ -35,7 +35,7 @@ This project shows you how to make **Llama 3.1 8B** speak like **Rick Sanchez** 
 
 The project can be divided into three main parts:
 
-1. **Dataset creation**: Creating a custom dataset from Rick and Morty transcripts in ShareGPT format.
+1. **Dataset creation**: Creating a custom dataset from Chandler Bing transcripts in ShareGPT format.
 2. **Model finetuning**: Finetuning the model using Unsloth's optimizations on Google Colab's T4 GPU.    
 3. **Model deployment**: Converting and deploying the model to Ollama for local use.
 
@@ -63,7 +63,7 @@ We are not going to appply a full finetuning, instead, we'll apply a LoRA finetu
 Since you might not have access to a local GPU. i am using google colab free version.
 
 
-> You have all the finetuning code under the [rick_llm](chatbot\src\chandler_llm) folder.
+> You have all the finetuning code under the [chandler_llm](chatbot\src\chandler_llm) folder.
 
 ### Model deployment
 
@@ -151,7 +151,7 @@ Now, you can use the Ollama CLI to create the model.
 ollama create chandler_tinyllama -f ollama_files/Modelfile
 ```
 
-Once the model is created, you can start chatting with your Rick-speaking AI assistant.
+Once the model is created, you can start chatting with your Chandler-speaking AI assistant.
 
 ```bash
 ollama run chandler_tinyllama:latest
