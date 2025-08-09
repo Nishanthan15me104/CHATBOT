@@ -1,11 +1,11 @@
 import os
 
-import dotenv
+# import dotenv
 
 from utils import initialize_model, setup_peft_model
 from trainer import ModelTrainer
 
-dotenv.load_dotenv()
+# dotenv.load_dotenv() not needed 
 
 
 def main():
@@ -18,7 +18,7 @@ def main():
     trainer_instance = trainer.setup_trainer()
     trainer_instance.train()
 
-    # Push to hub
+    # save the files 
     save_directory = "./fine_tuned_chandler_model"
     os.makedirs(save_directory, exist_ok=True)
 

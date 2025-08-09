@@ -158,116 +158,52 @@ make generate-ssh-key
 
 This will create the key and add it to your Lambda Labs account.
 
-### Launching a Lambda Labs instance
-
-Once you have the SSH key, you can launch a Lambda Labs instance with the following command, that will also attach the key to the instance:
-
-```bash
-make launch-lambda-instance
-```
-
-For availability issues, I'm using the `gpu_1x_a100_sxm4` instance type. If you want to change it, you can do it [here](src/lambda/request.json).
-
-### Fetching the instance IP
-
-Once the instance is launched, you can fetch the instance IP with the following command:
-
-```bash
-make get-lambda-ip
-```
-
-> You might need to wait a few minutes for the instance to be ready. To verify
-> the instance is ready, you can run the `make list-instances` command or go  to the Lambda Labs dashboard.
-
-Copy the IP address, since you'll need it to connect to the instance.
-
-<p align="center">
-        <img alt="logo" src="img/lambda_ip.png" width=600 />
-</p>
-
-### Syncing the local filesystem with the remote one
-
-Once you have the IP address, you can sync the local filesystem with the remote one with the following command:
-
-```bash
-rsync -av .env Makefile src/lambda/requirements_lambda.txt ubuntu@<INSTANCE_IP>:/home/ubuntu/
-rsync -av src/rick_llm ubuntu@<INSTANCE_IP>:/home/ubuntu/src/
-```
-
-Now connect to the instance using SSH:
-
-```bash
-ssh ubuntu@<INSTANCE_IP>
-```
-
-<p align="center">
-        <img alt="logo" src="img/lambda_ssh.png" width=600 />
-</p>
-
-### Configuring Lambda Labs instance
-
-Inside the instance, you need to install some dependencies before running the finetune process. You can do this with the following command:
-
-```bash
-make lambda-setup
-```
 
 ### Finetuning the model
 
-Phew! We're almost there. Now we can finetune the model. You can do this with the following command:
+To finetune start finetuning copy all fiels in chandler_llm along with processed dataset chandler_finetune_data.jsnol file to colab . 
 
-```bash
-make finetune
-```
+Remember to save the file and working connect you google drive with colab.
+
+In colab run the below line to install the dependencies. 
+
+        !pip install -q accelerate==0.21.0 peft==0.4.0 bitsandbytes==0.40.2 transformers==4.31.0 trl==0.4.7
+        
+select T4 GPU for the process and make sure the screen is alive.
+
+        Run the finetune.py to initiate the finetuning
 
 This will start the finetuning process. You can check the progress of the finetuning by checking the logs. 
 
 <p align="center">
-        <img alt="logo" src="img/finetune.png" width=600 />
+        <img alt="logo" src="chatbot\images\finetune.png" width=600 />
 </p>
 
 
-When the finetuning is finished, both the GGUF and the Modelfile will be pushed to Hugging Face (in this case, to the [The Neural Maze organization](https://huggingface.co/theneuralmaze)). If you want to push it to yours, simply change the name [here](src/rick_llm/finetune.py).
+When the finetuning is finished, save both the GGUF and the Modelfile will be saved in the folder.
 
-### Terminate the Lambda Labs instance
-
-Once the finetuning is finished, you can terminate the Lambda Labs instance with the following command:
-
-```bash
-make terminate-instance
-```
+we further use the downloaded file to run the model locally using ollama
 
 ### Creating the Ollama model
 
-Now that we have the GGUF in Hugging Face, we need to download it locally. The following command will download the GGUF file to the `ollama_files` folder.
+Now that we have the GGUF in Hugging Face, we need to download it locally and save  model file and gguf file in same folder(ollama_files).
 
-```bash
-make download-model
-```
 
 Now, you can use the Ollama CLI to create the model.
 
 ```bash
-ollama create rick-llm -f ollama_files/Modelfile
+ollama create chandler_tinyllama -f ollama_files/Modelfile
 ```
 
 Once the model is created, you can start chatting with your Rick-speaking AI assistant.
 
 ```bash
-ollama run rick-llm
+ollama run chandler_tinyllama:latest
 ```
 
 <p align="center">
         <img alt="logo" src="img/rick_ollama_chat.png" width=600 />
 </p>
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
 
 
 ## Could I BE any more sarcastic?
