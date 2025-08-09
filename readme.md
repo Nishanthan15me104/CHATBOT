@@ -61,7 +61,7 @@ To train an AI, we need a special kind of dataset. This dataset will tell the AI
 
 This dataset will be placed in same location as finetune.py file when finetunging the model in Google Colab.
 
-> You have all the code for this part [here](chatbot\src\data_creation.py).
+> You have all the code for this part [here](chatbot/src/data_creation.py).
 
 
 ### Model finetuning
