@@ -1,7 +1,6 @@
 #  sarcastic-chandler-bing-chatbot
 
 <p align="center">
-        <>
     <h1 align="center">Chandler Bing LLM</h1>
     <h3 align="center">Make Qwen3-0.6B talk in Chandler Bing style</h3>
 </p>
@@ -15,16 +14,9 @@
 - [3. Configuration](#configuration)
 - [4. Running the project](#running-the-project)
     - [4.1 Create the dataset](#create-the-dataset)
-    - [4.2 Configure your Lambda Labs account](#configure-your-lambda-labs-account)
-    - [4.3 Create an SSH key](#create-an-ssh-key)
-    - [4.4 Launching a Lambda Labs instance](#launching-a-lambda-labs-instance)
-    - [4.5 Fetching the instance IP](#fetching-the-instance-ip)
-    - [4.6 Syncing the local filesystem with the remote one](#syncing-the-local-filesystem-with-the-remote-one)
-    - [4.7 Configuring Lambda Labs instance](#configuring-lambda-labs-instance)
-    - [4.8 Finetuning the model](#finetuning-the-model)
-    - [4.9 Terminate the Lambda Labs instance   ](#terminate-the-lambda-labs-instance)
-    - [4.10 Creating the Ollama model](#creating-the-ollama-model)
-- [5. Contributing](#contributing)
+    - [4.2 Finetuning the model](#finetuning-the-model)
+    - [4.3 Creating the Ollama model](#creating-the-ollama-model)
+- [5. Project file description](#Project-file-description)
 
 
 
@@ -40,9 +32,6 @@ This project shows you how to make **Llama 3.1 8B** speak like **Rick Sanchez** 
 
 ## Project Design 
 
-<p align="center">
-        <img alt="logo" src="img/project_design.png" width=600 />
-</p>
 
 The project can be divided into three main parts:
 
@@ -66,9 +55,6 @@ This dataset will be placed in same location as finetune.py file when finetungin
 
 ### Model finetuning
 
-<p align="center">
-        <img alt="logo" src="img/unsloth.png" width=400 />
-</p>
 
 Now that we have the dataset, we can start the finetuning process. We'll use the [Unsloth](https://unsloth.ai/) library to finetune the model. Unsloth is a library that provides a set of optimizations for finetuning LLMs, making the process faster and more efficient.
 
@@ -76,17 +62,11 @@ We are not going to appply a full finetuning, instead, we'll apply a LoRA finetu
 
 Since you might not have access to a local GPU. i am using google colab free version.
 
-<p align="center">
-        <img alt="logo" src="img/lambda.png" width=400 />
-</p>
 
 > You have all the finetuning code under the [rick_llm](chatbot\src\chandler_llm) folder.
 
 ### Model deployment
 
-<p align="center">
-        <img alt="logo" src="img/ollama.png" width=400 />
-</p>
 
 Once the model is finetuned, we need to convert it to a format that can be used by Ollama. The two files we need are:
 
@@ -128,36 +108,12 @@ to do so run script file  in terminal data_creation.py.
 python data_creation.py
 ```
 
-This will create the dataset and push it to Hugging Face.
 
 > Don't forget to change the dataset name in the `src/data_creation.py` file!!
 
 once completed we will get this message : 'Data preparation complete'
-<p align="center">
-        <img alt="logo" src="chatbot\images\data_creation_completion.png" width=600 />
-</p>
 
-
-### Configure your Lambda Labs account
-
-<p align="center">
-        <img alt="logo" src="img/lambda_home.png" width=600 />
-</p>
-
-You need to go to [Lambda Labs](https://lambdalabs.com/) and create an account. Once you have an account, you can create a new API key. This key will be used to sync the local filesystem with the remote one.
-
-> Don't forget to add the key to your `.env` file.
-
-### Create an SSH key
-
-You need to create an SSH key to be able to sync the local filesystem with the remote one. You can do this with the following command:
-
-```bash
-make generate-ssh-key
-```
-
-This will create the key and add it to your Lambda Labs account.
-
+Next lets move to finetuning the model.
 
 ### Finetuning the model
 
@@ -201,20 +157,9 @@ Once the model is created, you can start chatting with your Rick-speaking AI ass
 ollama run chandler_tinyllama:latest
 ```
 
-<p align="center">
-        <img alt="logo" src="img/rick_ollama_chat.png" width=600 />
-</p>
 
+### Project file description
 
-## Could I BE any more sarcastic?
-
-This project aims to create a chatbot fine-tuned on the personality and sarcasm of Chandler Bing from the TV show *Friends*. It leverages a custom dataset, efficient fine-tuning techniques (Unsloth, LoRA), and a multi-component architecture for interaction.
-
----
-
-### Project Components
-
-This repository contains several interconnected components that work together to bring the Chandler Bing chatbot to life:
 
 1.  **`data_creation.py`**: Handles the initial data preparation for fine-tuning.
 2.  **`constants.py`**: Stores configuration parameters for the model, PEFT (LoRA), and training process.
